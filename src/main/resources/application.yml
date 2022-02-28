@@ -27,7 +27,7 @@ mybatis:
 
 redis:
   key:
-    prifix:
+    prefix:
       authCode: "portal:authCode:"
-      expire:
-        authCode: 120 # 验证码超期时间
+    expire:
+      authCode: 120 # 验证码超期时间
