@@ -2,9 +2,10 @@ package com.example.javamall.config;
 
 
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Configuration;
 
-@Configurable
+
+@Configuration
 @MapperScan("com.example.javamall.mbg.mapper")
 public class MybatisConfig {
 
