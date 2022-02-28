@@ -12,9 +12,7 @@
     <result column="product_comment_count" jdbcType="INTEGER" property="productCommentCount" />
     <result column="logo" jdbcType="VARCHAR" property="logo" />
     <result column="big_pic" jdbcType="VARCHAR" property="bigPic" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.javamall.mbg.model.PmsBrand">
-    <result column="brand_story" jdbcType="LONGVARCHAR" property="brandStory" />
+    <result column="brand_story" jdbcType="VARCHAR" property="brandStory" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,27 +74,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, name, first_letter, sort, factory_status, show_status, product_count, product_comment_count, 
-    logo, big_pic
+    logo, big_pic, brand_story
   </sql>
-  <sql id="Blob_Column_List">
-    brand_story
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.example.javamall.mbg.model.PmsBrandExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from pms_brand
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.example.javamall.mbg.model.PmsBrandExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -111,11 +90,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from pms_brand
     where id = #{id,jdbcType=BIGINT}
   </select>
@@ -140,7 +117,7 @@
     values (#{name,jdbcType=VARCHAR}, #{firstLetter,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
       #{factoryStatus,jdbcType=INTEGER}, #{showStatus,jdbcType=INTEGER}, #{productCount,jdbcType=INTEGER}, 
       #{productCommentCount,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{bigPic,jdbcType=VARCHAR}, 
-      #{brandStory,jdbcType=LONGVARCHAR})
+      #{brandStory,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.javamall.mbg.model.PmsBrand">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -208,7 +185,7 @@
         #{bigPic,jdbcType=VARCHAR},
       </if>
       <if test="brandStory != null">
-        #{brandStory,jdbcType=LONGVARCHAR},
+        #{brandStory,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -252,26 +229,9 @@
         big_pic = #{record.bigPic,jdbcType=VARCHAR},
       </if>
       <if test="record.brandStory != null">
-        brand_story = #{record.brandStory,jdbcType=LONGVARCHAR},
+        brand_story = #{record.brandStory,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update pms_brand
-    set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      first_letter = #{record.firstLetter,jdbcType=VARCHAR},
-      sort = #{record.sort,jdbcType=INTEGER},
-      factory_status = #{record.factoryStatus,jdbcType=INTEGER},
-      show_status = #{record.showStatus,jdbcType=INTEGER},
-      product_count = #{record.productCount,jdbcType=INTEGER},
-      product_comment_count = #{record.productCommentCount,jdbcType=INTEGER},
-      logo = #{record.logo,jdbcType=VARCHAR},
-      big_pic = #{record.bigPic,jdbcType=VARCHAR},
-      brand_story = #{record.brandStory,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -287,7 +247,8 @@
       product_count = #{record.productCount,jdbcType=INTEGER},
       product_comment_count = #{record.productCommentCount,jdbcType=INTEGER},
       logo = #{record.logo,jdbcType=VARCHAR},
-      big_pic = #{record.bigPic,jdbcType=VARCHAR}
+      big_pic = #{record.bigPic,jdbcType=VARCHAR},
+      brand_story = #{record.brandStory,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -323,23 +284,9 @@
         big_pic = #{bigPic,jdbcType=VARCHAR},
       </if>
       <if test="brandStory != null">
-        brand_story = #{brandStory,jdbcType=LONGVARCHAR},
+        brand_story = #{brandStory,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.javamall.mbg.model.PmsBrand">
-    update pms_brand
-    set name = #{name,jdbcType=VARCHAR},
-      first_letter = #{firstLetter,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=INTEGER},
-      factory_status = #{factoryStatus,jdbcType=INTEGER},
-      show_status = #{showStatus,jdbcType=INTEGER},
-      product_count = #{productCount,jdbcType=INTEGER},
-      product_comment_count = #{productCommentCount,jdbcType=INTEGER},
-      logo = #{logo,jdbcType=VARCHAR},
-      big_pic = #{bigPic,jdbcType=VARCHAR},
-      brand_story = #{brandStory,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.javamall.mbg.model.PmsBrand">
@@ -352,7 +299,8 @@
       product_count = #{productCount,jdbcType=INTEGER},
       product_comment_count = #{productCommentCount,jdbcType=INTEGER},
       logo = #{logo,jdbcType=VARCHAR},
-      big_pic = #{bigPic,jdbcType=VARCHAR}
+      big_pic = #{bigPic,jdbcType=VARCHAR},
+      brand_story = #{brandStory,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

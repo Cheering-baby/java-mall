@@ -743,6 +743,76 @@ public class PmsBrandExample {
             addCriterion("big_pic not between", value1, value2, "bigPic");
             return (Criteria) this;
         }
+
+        public Criteria andBrandStoryIsNull() {
+            addCriterion("brand_story is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryIsNotNull() {
+            addCriterion("brand_story is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryEqualTo(String value) {
+            addCriterion("brand_story =", value, "brandStory");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryNotEqualTo(String value) {
+            addCriterion("brand_story <>", value, "brandStory");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryGreaterThan(String value) {
+            addCriterion("brand_story >", value, "brandStory");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryGreaterThanOrEqualTo(String value) {
+            addCriterion("brand_story >=", value, "brandStory");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryLessThan(String value) {
+            addCriterion("brand_story <", value, "brandStory");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryLessThanOrEqualTo(String value) {
+            addCriterion("brand_story <=", value, "brandStory");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryLike(String value) {
+            addCriterion("brand_story like", value, "brandStory");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryNotLike(String value) {
+            addCriterion("brand_story not like", value, "brandStory");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryIn(List<String> values) {
+            addCriterion("brand_story in", values, "brandStory");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryNotIn(List<String> values) {
+            addCriterion("brand_story not in", values, "brandStory");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryBetween(String value1, String value2) {
+            addCriterion("brand_story between", value1, value2, "brandStory");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandStoryNotBetween(String value1, String value2) {
+            addCriterion("brand_story not between", value1, value2, "brandStory");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

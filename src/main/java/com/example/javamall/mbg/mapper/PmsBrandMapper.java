@@ -18,21 +18,15 @@ public interface PmsBrandMapper {
 
     int insertSelective(PmsBrand record);
 
-    List<PmsBrand> selectByExampleWithBLOBs(PmsBrandExample example);
-
     List<PmsBrand> selectByExample(PmsBrandExample example);
 
     PmsBrand selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") PmsBrand record, @Param("example") PmsBrandExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") PmsBrand record, @Param("example") PmsBrandExample example);
-
     int updateByExample(@Param("record") PmsBrand record, @Param("example") PmsBrandExample example);
 
     int updateByPrimaryKeySelective(PmsBrand record);
-
-    int updateByPrimaryKeyWithBLOBs(PmsBrand record);
 
     int updateByPrimaryKey(PmsBrand record);
 }
