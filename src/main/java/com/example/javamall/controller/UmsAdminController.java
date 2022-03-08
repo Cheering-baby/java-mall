@@ -2,9 +2,11 @@ package com.example.javamall.controller;
 
 import com.example.javamall.common.api.CommonResult;
 import com.example.javamall.dto.UmsAdminLoginParam;
+import com.example.javamall.dto.UmsPermissionNode;
 import com.example.javamall.mbg.model.UmsAdmin;
 import com.example.javamall.mbg.model.UmsPermission;
 import com.example.javamall.service.UmsAdminService;
+import com.example.javamall.service.UmsPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,8 @@ import java.util.Map;
 public class UmsAdminController {
     @Autowired
     private UmsAdminService adminService;
+    @Autowired
+    private UmsPermissionService umsPermissionService;
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
     @Value("${jwt.tokenHead}")
@@ -56,6 +60,11 @@ public class UmsAdminController {
     public CommonResult<List<UmsPermission>> getPermissionList(@PathVariable long adminId) {
         List<UmsPermission> permissionList = adminService.getPermissionList(adminId);
         return CommonResult.success(permissionList);
+    }
+
+    @RequestMapping(value = "/permission/all", method = RequestMethod.GET)
+    public CommonResult<List<UmsPermissionNode>> getAllPermissionList() {
+        return CommonResult.success(umsPermissionService.permissionTreeList());
     }
 
 }

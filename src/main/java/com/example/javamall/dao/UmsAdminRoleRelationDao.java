@@ -1,6 +1,7 @@
 package com.example.javamall.dao;
 
 
+import com.example.javamall.dto.UmsPermissionNode;
 import com.example.javamall.mbg.model.UmsPermission;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -21,4 +22,7 @@ public interface UmsAdminRoleRelationDao {
      */
     @Select("SELECT * FROM ums_permission WHERE id in (SELECT permission_id FROM ums_admin_permission_relation WHERE admin_id=#{adminId})")
     List<UmsPermission> getPermissionList(@Param("adminId") Long adminId);
+
+    @Select("SELECT * FROM ums_permission")
+    List<UmsPermission> getAllPermissionList();
 }
