@@ -59,4 +59,16 @@ public class MinioController {
       }
       return CommonResult.failed();
     }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public CommonResult delete(@RequestParam("objectName") String objectName) {
+        try{
+            MinioClient minioClient = new MinioClient(ENDPOINT, ACCESS_KEY, SECRET_KEY);
+            minioClient.removeObject(BUCKET_NAME, objectName);
+            return CommonResult.success(null);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return CommonResult.failed();
+    }
 }
