@@ -1,13 +1,17 @@
 package com.example.javamall.service.impl;
 
 
+import com.example.javamall.dto.PmsBrandParam;
 import com.example.javamall.mbg.mapper.PmsBrandMapper;
 import com.example.javamall.mbg.model.PmsBrand;
 import com.example.javamall.mbg.model.PmsBrandExample;
 import com.example.javamall.service.PmsBrandService;
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import java.util.List;
 
 @Service
@@ -21,8 +25,13 @@ public class PmsServiceImpl implements PmsBrandService {
     }
 
     @Override
-    public int createBrand(PmsBrand brand) {
-        return brandMapper.insertSelective(brand);
+    public int createBrand(PmsBrandParam pmsBrandParam) {
+        PmsBrand pmsBrand = new PmsBrand();
+        BeanUtils.copyProperties(pmsBrandParam, pmsBrand);
+        if (StringUtils.isEmpty(pmsBrand.getFirstLetter())) {
+            pmsBrand.setFirstLetter(pmsBrand.getName().substring(0, 1));
+        }
+        return brandMapper.insertSelective(pmsBrand);
     }
 
     @Override

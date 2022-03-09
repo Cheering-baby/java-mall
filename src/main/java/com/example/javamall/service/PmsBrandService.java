@@ -1,5 +1,6 @@
 package com.example.javamall.service;
 
+import com.example.javamall.dto.PmsBrandParam;
 import com.example.javamall.mbg.model.PmsBrand;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 public interface PmsBrandService {
     List<PmsBrand> listAllBrand();
 
-    int createBrand(PmsBrand brand);
+    int createBrand(PmsBrandParam brand);
 
     int updateBrand(Long id, PmsBrand brand);
 
