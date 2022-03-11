@@ -31,6 +31,7 @@ public class BindingResultAspect {
                 if (result.hasErrors()) {
                     FieldError fieldError = result.getFieldError();
                     if(fieldError!=null){
+                        System.out.println("error");
                         return CommonResult.validateFailed(fieldError.getDefaultMessage());
                     }else{
                         return CommonResult.validateFailed();

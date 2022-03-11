@@ -1,5 +1,7 @@
 package com.example.javamall.service.impl;
 
+import com.example.javamall.common.api.UmsResultCode;
+import com.example.javamall.common.exception.ApiExceptionAsserts;
 import com.example.javamall.common.utils.JwtTokenUtil;
 import com.example.javamall.dao.UmsAdminRoleRelationDao;
 import com.example.javamall.dto.UmsAdminLoginParam;
@@ -80,6 +82,10 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     @Override
     public String login(String username, String password) {
         String token = null;
+
+        ApiExceptionAsserts.hasText(username, UmsResultCode.USERNAME_REQUIRED);
+        ApiExceptionAsserts.hasText(password, UmsResultCode.USERNAME_REQUIRED);
+
         try {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if (!passwordEncoder.matches(password, userDetails.getPassword())) {

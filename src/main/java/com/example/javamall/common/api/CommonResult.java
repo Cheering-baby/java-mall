@@ -5,14 +5,19 @@ package com.example.javamall.common.api;
  * Created by daizhihong on 2022/02/28.
  */
 public class CommonResult<T> {
-    private long code;
+    private String code;
     private String message;
     private T data;
 
-    protected CommonResult() {
+    public CommonResult() {
     }
 
-    protected CommonResult(long code, String message, T data) {
+    public CommonResult(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public CommonResult(String code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -89,11 +94,11 @@ public class CommonResult<T> {
         return new CommonResult<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
     }
 
-    public long getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(long code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

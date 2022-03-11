@@ -5,7 +5,7 @@ package com.example.javamall.common.api;
  * Created by daizhihong on 2022/02/28.
  */
 public interface IErrorCode {
-    long getCode();
+    String getCode();
 
     String getMessage();
 }

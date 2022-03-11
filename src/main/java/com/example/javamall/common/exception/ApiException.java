@@ -7,11 +7,12 @@ import com.example.javamall.common.api.IErrorCode;
  * Created by macro on 2020/2/27.
  */
 public class ApiException extends RuntimeException {
-    private IErrorCode errorCode;
+    private String errorCode;
+    private String errorMessage;
 
     public ApiException(IErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
+        this.errorCode = errorCode.getCode();
+        this.errorMessage = errorCode.getMessage();
     }
 
     public ApiException(String message) {
@@ -26,7 +27,11 @@ public class ApiException extends RuntimeException {
         super(message, cause);
     }
 
-    public IErrorCode getErrorCode() {
+    public String getErrorCode() {
         return errorCode;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

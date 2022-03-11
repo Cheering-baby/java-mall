@@ -5,27 +5,25 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ResponseBody
     @ExceptionHandler(value = ApiException.class)
     public CommonResult handle(ApiException e) {
         if(e.getErrorCode() != null) {
-            return CommonResult.failed(e.getErrorCode());
+            return new CommonResult(e.getErrorCode(), e.getErrorMessage());
         }
 
         return CommonResult.failed(e.getMessage());
     }
 
-    @ResponseBody
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public CommonResult handleValidException(MethodArgumentNotValidException e) {
         BindingResult bindingResult = e.getBindingResult();
+        System.out.println("handleValidException MethodArgumentNotValidException");
         String message = null;
         if (bindingResult.hasErrors()) {
             FieldError fieldError = bindingResult.getFieldError();
@@ -36,11 +34,11 @@ public class GlobalExceptionHandler {
         return CommonResult.validateFailed(message);
     }
 
-    @ResponseBody
     @ExceptionHandler(value = BindException.class)
     public CommonResult handleValidException(BindException e) {
         BindingResult bindingResult = e.getBindingResult();
         String message = null;
+        System.out.println("handleValidException BindException");
         if (bindingResult.hasErrors()) {
             FieldError fieldError = bindingResult.getFieldError();
             if (fieldError != null) {
