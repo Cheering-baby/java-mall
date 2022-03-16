@@ -1,11 +1,9 @@
 package com.example.javamall.dao;
 
 
-import com.example.javamall.dto.UmsPermissionNode;
 import com.example.javamall.mbg.model.UmsPermission;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

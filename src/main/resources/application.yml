@@ -25,10 +25,24 @@ spring:
     mongodb:
       uri: mongodb+srv://root:dzh967015@cluster0.oyide.mongodb.net/test?retryWrites=true&w=majority
       database: mall
+    elasticsearch:
+      repositories:
+        enabled: true
+      client:
+        reactive:
+          endpoints: localhost:9300
+          use-ssl: false
   servlet:
     multipart:
       enabled: true # 开启文件上传
       max-file-size: 10MB # 限制文件上传大小为10MB
+  rabbitmq:
+    host: localhost
+    port: 5672
+    virtual-host: /mall
+    username: mall
+    password: mall
+    publisher-returns: true
 
 mybatis:
   mapper-locations:
