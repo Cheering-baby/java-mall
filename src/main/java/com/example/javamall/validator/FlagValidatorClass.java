@@ -21,7 +21,7 @@ public class FlagValidatorClass implements ConstraintValidator<FlagValidator,Int
             //当状态为空时使用默认值
             return true;
         }
-        for(int i=0;i<values.length;i++){
+        for(int i=0; i < values.length; i++){
             if(values[i].equals(String.valueOf(value))){
                 isValid = true;
                 break;

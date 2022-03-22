@@ -1,6 +1,9 @@
 package com.example.javamall.service.impl;
 
 
+import com.example.javamall.common.api.UmsResultCode;
+import com.example.javamall.common.exception.ApiException;
+import com.example.javamall.common.exception.ApiExceptionAsserts;
 import com.example.javamall.dto.PmsBrandParam;
 import com.example.javamall.mbg.mapper.PmsBrandMapper;
 import com.example.javamall.mbg.model.PmsBrand;
@@ -10,6 +13,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -24,14 +28,22 @@ public class PmsServiceImpl implements PmsBrandService {
         return brandMapper.selectByExample(new PmsBrandExample());
     }
 
+    @Transactional(noRollbackFor = { ApiException.class })
     @Override
-    public int createBrand(PmsBrandParam pmsBrandParam) {
+    public int createBrand(PmsBrandParam pmsBrandParam)  {
         PmsBrand pmsBrand = new PmsBrand();
+
         BeanUtils.copyProperties(pmsBrandParam, pmsBrand);
-        if (StringUtils.isEmpty(pmsBrand.getFirstLetter())) {
-            pmsBrand.setFirstLetter(pmsBrand.getName().substring(0, 1));
+        Integer count = brandMapper.insertSelective(pmsBrand);
+        try {
+            if (StringUtils.isEmpty(pmsBrand.getFirstLetter())) {
+                pmsBrand.setFirstLetter(pmsBrand.getName().substring(0, 1));
+                throw new Exception("12");
+            }
+        }catch (Exception e) {
+            e.getMessage();
         }
-        return brandMapper.insertSelective(pmsBrand);
+        return count;
     }
 
     @Override
