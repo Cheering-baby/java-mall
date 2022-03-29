@@ -100,6 +100,11 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.2.8</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.80</version>
+        </dependency>
         <!-- MyBatis 生成器 -->
         <dependency>
             <groupId>org.mybatis.generator</groupId>

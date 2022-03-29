@@ -23,4 +23,12 @@ public class MinioUploadDto {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "MinioUploadDto{" +
+                "url='" + url + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
