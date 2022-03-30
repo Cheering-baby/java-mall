@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor User
+participant Frontend
+participant TransOrderController
+participant TransOrderAppService
+participant TransOrderDomainService
+participant TransOrderDo
+participant TransOrderEventPublisher
+
+== 创建订单 ==
+User -> Frontend: 填写Event信息，下单
+Frontend -> TransOrderController: request /trans/order/createOrder
+TransOrderController -> TransOrderAppService: 将请求参数Dto转换成TransOrderDo,\n 调用 createOrder
+TransOrderAppService -> TransOrderDomainService: 调用 createOrder
+TransOrderDomainService -> TransOrderDo: 调用 createOrder
+TransOrderDo -> TransOrderDo: 根据产品类型做订单拆分，拆分为多个子订单
+TransOrderDo -> TransOrderDo: createOrder内部做数据的初始归档操作
+TransOrderDo -> TransOrderEventPublisher: publish(ProcessOrderEvent),发起订单事件，支持同步或异步
+== 然后ProcessOrderListener 启动处理流程==
+...
+== 处理订单结束 ==
+TransOrderDo --> TransOrderDomainService: return orderId
+TransOrderDomainService --> TransOrderAppService: return orderId
+TransOrderAppService -->  Frontend: return orderId
+alt if ProcessOrderEvent异步处理订单
+Frontend -> TransOrderController: request /trans/order/queryOrderStatus
+TransOrderController -> TransOrderAppService: 查询订单状态
+TransOrderAppService -> TransOrderDomainService: 查询订单状态
+TransOrderDomainService -> TransOrderDo: 查询订单状态
+TransOrderDo --> TransOrderDomainService: return status
+TransOrderDomainService --> TransOrderAppService: return status
+TransOrderAppService --> TransOrderController: return status
+TransOrderController --> Frontend: return status
+end alt
+
+@enduml
